@@ -10,13 +10,15 @@ package frc.robot.subsytems;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
+import frc.robot.command.Drive;
 
 /**
  * Add your docs here.
  */
-public class Drivetrain implements Subsystem{
+public class Drivetrain extends Subsystem implements SendableWithChildren{
 
     //Left Toughbox Controllers
     VictorSP leftController1 = new VictorSP(Robot.LEFT_DRIVE_MOTOR_1);
@@ -53,13 +55,9 @@ public class Drivetrain implements Subsystem{
     }
 
     @Override
-    public void test() {
+    protected void initDefaultCommand() {
+        setDefaultCommand(new Drive());
 
-    }
-
-    @Override
-    public void publishStats() {
-        
     }
 
 }

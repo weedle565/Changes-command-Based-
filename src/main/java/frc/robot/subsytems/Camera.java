@@ -9,18 +9,16 @@ package frc.robot.subsytems;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public class Camera implements Subsystem{
+public class Camera extends Subsystem{
 
     private UsbCamera camera1;
 
     private UsbCamera camera2;
-
-    private boolean camereasWorking;
 
     public Camera(){
         try{
@@ -33,22 +31,13 @@ public class Camera implements Subsystem{
 
             camera2.setFPS(10);
             camera2.setResolution(320, 180);
-            camereasWorking = true;
         }catch(Exception e){
-            camereasWorking = false;
             e.printStackTrace();
         }
     }
 
     @Override
-    public void test() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void publishStats() {
-        SmartDashboard.putBoolean("Cameras Working!!", camereasWorking);
+    protected void initDefaultCommand() {
 
     }
 

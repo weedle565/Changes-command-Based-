@@ -7,21 +7,19 @@
 
 package frc.robot.subsytems;
 
-
-
 import edu.wpi.first.wpilibj.PWMVictorSPX;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
+import frc.robot.command.ShooterTake;
 
 /**
  * Add your docs here.
  */
-public class Shooter implements Subsystem{
+public class Shooter extends Subsystem{
 
     private final PWMVictorSPX shooterFlywheel;
     private final PWMVictorSPX shooterEntryWheel;
 
-    private boolean shootingBall = false;
 
     public Shooter(){
         shooterFlywheel = new PWMVictorSPX(Robot.SHOOTER_FLYWHEEL);
@@ -36,21 +34,11 @@ public class Shooter implements Subsystem{
 
     public void shootBall(double speed){
          shooterFlywheel.set(speed);
-         shootingBall = true;
     }
     
-    public void reset(){
-        shootingBall = false;
-    }
-
     @Override
-    public void test() {
-
-    }
-
-    @Override
-    public void publishStats() {
-        SmartDashboard.putBoolean("Is Shooter Being Basketball God?", shootingBall);
+    protected void initDefaultCommand() {
+        setDefaultCommand(new ShooterTake());
 
     }
 

@@ -11,12 +11,14 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
+import frc.robot.command.RopeDown;
 
 /**
  * Depends on REV SparkMax download by going CTRL SHIFT P then manage libaries, hit online instal: URL: 
  */
-public class Climber implements Subsystem{
+public class Climber extends Subsystem {
 
     private VictorSP climber;
 
@@ -50,12 +52,8 @@ public class Climber implements Subsystem{
     }
 
     @Override
-    public void test() {
-        
-    }
-
-    @Override
-    public void publishStats() {
+    protected void initDefaultCommand() {
+        setDefaultCommand(new RopeDown());
 
     }
 

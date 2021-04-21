@@ -6,27 +6,20 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-//test
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auto.AutoStrategy;
 import frc.robot.auto.ShootAuto;
 import frc.robot.auto.Straight;
-import frc.robot.controls.DriverControls;
-import frc.robot.controls.OperatorControls;
-import frc.robot.controls.RobotControls;
+import frc.robot.controls.Controls;
 import frc.robot.subsytems.Camera;
 import frc.robot.subsytems.Climber;
 import frc.robot.subsytems.Drivetrain;
 import frc.robot.subsytems.Intake;
 import frc.robot.subsytems.Shooter;
-import frc.robot.subsytems.Subsystem;
 
 //Brandon is good with playstation controllers!
 //Sam is good with playstation controllers!
@@ -51,21 +44,20 @@ public class Robot extends TimedRobot {
   public static final int SHOOTER_FLYWHEEL = 9;
 
   //Getting the subsystems into the code
-  private Intake Intake;
-  private Shooter Shooter;
-  private Drivetrain Drivetrain;
-  private Climber Climber;
-  private Camera Camera;
+  public static Intake Intake;
+  public static Shooter Shooter;
+  public static  Drivetrain Drivetrain;
+  public static  Climber Climber;
+  public static  Camera Camera;
 
   //Create new controls
-  private RobotControls driverControls;
-  private RobotControls operatorControls;
+  private Controls controls;
 
   //Create auto objects
   private AutoStrategy autoStrategy;
 
   //Creating the list object
-  private List<Subsystem> subsystems = new ArrayList<>();
+  //private List<Subsystem> subsystems = new ArrayList<>();
 
   //Select which auto we wil be using
   private SendableChooser<AutoStrategy> autoChooser;
@@ -89,16 +81,15 @@ public class Robot extends TimedRobot {
       Intake = new Intake();
       Drivetrain = new Drivetrain();
       Shooter = new Shooter();
-      driverControls = new DriverControls(0);
       Climber = new Climber();
-      operatorControls = new OperatorControls(1);
       Camera = new Camera();
       autoStrategy = new Straight();
+      controls = new Controls();
 
-      subsystems.add(Camera);
+      /*subsystems.add(Camera);
       subsystems.add(Intake);
       subsystems.add(Shooter);
-      subsystems.add(Climber);
+      subsystems.add(Climber);*/
      // subsystems.add(Drivetrain);
     } catch (Exception e) {
       e.printStackTrace();
@@ -128,8 +119,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic(){
     try{
-      driverControls.giveCommands(this);
-      operatorControls.giveCommands(this);
+      Scheduler.getInstance().run();
       SmartDashboard.putBoolean("Controls Working", true);
       //Call the giveCommands method to allow the driver to control the robot
     } catch(Exception e){
@@ -159,12 +149,12 @@ public class Robot extends TimedRobot {
 
   private void publishSubsystems(){
     //To get the names of the subsystems
-    Iterator<Subsystem> i = subsystems.iterator();
+    //Iterator<Subsystem> i = subsystems.iterator();
     //To call the publishStats method of each subsystem
-    while(i.hasNext()){
+   // while(i.hasNext()){
 
-      Subsystem nextSubsystem = (Subsystem) i.next();
-      nextSubsystem.publishStats();
-    }
+   //   Subsystem nextSubsystem = (Subsystem) i.next();
+  //    nextSubsystem.publishStats();
+    
   }
 }
